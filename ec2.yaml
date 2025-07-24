@@ -15,6 +15,10 @@ Resources:
       CidrBlock: 10.0.0.34/27 
       VpcId: 
         Ref: MyVPC
+  Mappings:
+    AWSRegionToAMI:
+      ap-south-1:
+        "64": ami-0b32d400456908bf9
   MyInstance:
     Type: AWS::EC2::Instance
     Properties:
