@@ -10,7 +10,14 @@ Resources:
       KeyName: mymumbai-key     # Replace with your EC2 key pair
       SecurityGroups:
         - default
-
+    UserData: 
+      Fn::Base64: !Sub | 
+        #!/bin/bash 
+        cd /tmp 
+        yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/
+ latest/linux_amd64/amazon-ssm-agent.rpm 
+        systemctl enable amazon-ssm-agent 
+        systemctl start amazon-ssm-agent
 Outputs:
   InstanceId:
     Description: Instance ID
