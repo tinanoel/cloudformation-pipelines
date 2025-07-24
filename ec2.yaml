@@ -19,13 +19,19 @@ Resources:
       Ref: MyVPC
   EC2Instance:
     Type: AWS::EC2::Instance
-    Properties:
-      InstanceType: t2.micro
-      ImageId: ami-0b32d400456908bf9  # Replace with your region's latest Amazon Linux 2 AMI
-      KeyName: mymumbai-key     # Replace with your EC2 key pair
-      SecurityGroups:
-        - default
-        
+    Properties
+      ImageId: 
+        Fn::FindInMap: 
+          - AWSRegionToAMI 
+          - Ref: AWS::Region 
+          - "64" 
+      SecurityGroupIds: 
+        - Fn::GetAtt: 
+            - MyVPC 
+            - DefaultSecurityGroup 
+      SubnetId: 
+        Ref: MySubnet
+
 Outputs:
   InstanceId:
     Description: Instance ID
