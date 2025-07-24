@@ -5,16 +5,14 @@ Resources:
   MyVPC: 
     Type: AWS::EC2::VPC 
     Properties: 
-      CidrBlock: 
-        Ref: MyVPCCIDRRange 
+      CidrBlock: 10.0.0.0/24
       EnableDnsSupport: false 
       EnableDnsHostnames: false 
       InstanceTenancy: default
   MySubnet: 
     Type: AWS::EC2::Subnet 
     Properties: 
-      CidrBlock: 
-        Ref: MyVPCCIDRRange 
+      CidrBlock: 10.0.0.34/27 
       VpcId: 
         Ref: MyVPC
   EC2Instance:
