@@ -20,9 +20,7 @@ Resources:
       Tags: 
       - Key: Application
         Value: 
-          Ref: AWS::StackName 
-      - Key: Network 
-        Value: Public 
+          Ref: AWS::StackId
   GatewayToInternet:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
@@ -80,15 +78,15 @@ Resources:
       VpcId: !Ref MyVPC
 
       SecurityGroupIngress: 
-      - IpProtocol: tcp 
-        FromPort: 22 
-        ToPort: 22 
-        CidrIp: 
-          Ref: SSHLocation 
-      - IpProtocol: tcp 
-        FromPort: 80 
-        ToPort: 80 
-        CidrIp: 0.0.0.0/0 
+        - IpProtocol: tcp 
+          FromPort: 22 
+          ToPort: 22 
+          CidrIp: 
+            Ref: SSHLocation 
+        - IpProtocol: tcp 
+          FromPort: 80 
+          ToPort: 80 
+          CidrIp: 0.0.0.0/0 
 
 Outputs:
   InstanceId:
