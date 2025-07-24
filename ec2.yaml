@@ -14,6 +14,42 @@ Resources:
       EnableDnsSupport: false 
       EnableDnsHostnames: false 
       InstanceTenancy: default
+  InternetGateway: 
+    Type: AWS::EC2::InternetGateway 
+    Properties: 
+      Tags: 
+      - Key: Application
+        Value: 
+          Ref: AWS::StackName 
+      - Key: Network 
+        Value: Public 
+  GatewayToInternet:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VPC
+      InternetGatewayId:
+        Ref: InternetGateway
+  RouteTable:
+    Type: AWS::EC2:RouteTable
+    Properties:
+      VpcId:
+        Ref: VPC
+  SubnetRouteTableAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssoc
+    Properties:
+      RouteTableId:
+        Ref: RouteTable
+      SubnetId:
+        Ref: Subnet  
+  InternetGatewayRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+    RouteTableId:
+      Ref: RouteTable
+    GatewayId:
+      Ref: InternetGateway
   MySubnet: 
     Type: AWS::EC2::Subnet 
     Properties: 
@@ -21,7 +57,10 @@ Resources:
       AvailabilityZone: ap-south-1a
       VpcId: 
         Ref: MyVPC
-
+      Tags: 
+      - Key: Application 
+        Value: 
+          Ref: AWS::StackId 
   MyInstance:
     Type: AWS::EC2::Instance
     Properties:
@@ -30,16 +69,27 @@ Resources:
           - AWSRegionToAMI 
           - Ref: AWS::Region 
           - "64" 
-      SecurityGroupIds: 
-        - Fn::GetAtt: 
-            - MyVPC 
-            - DefaultSecurityGroup
       InstanceType: t2.micro
       KeyName: mymumbai-key
       AvailabilityZone: ap-south-1a
       SubnetId: 
         Ref: MySubnet
-
+InstanceSecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    VpcId:
+      Ref: VPC
+GroupDescription: Enable SSH access via port 22
+  SecurityGroupIngress: 
+    - IpProtocol: tcp 
+      FromPort: 22 
+      ToPort: 22 
+      CidrIp: 
+        Ref: SSHLocation 
+    - IpProtocol: tcp 
+      FromPort: 80 
+      ToPort: 80 
+      CidrIp: 0.0.0.0/0 
 Outputs:
   InstanceId:
     Description: Instance ID
