@@ -19,7 +19,7 @@ Resources:
         Ref: MyVPC
   EC2Instance:
     Type: AWS::EC2::Instance
-    Properties
+    Properties:
       ImageId: 
         Fn::FindInMap: 
           - AWSRegionToAMI 
