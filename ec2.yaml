@@ -7,7 +7,7 @@ Resources:
     Properties:
       InstanceType: t2.micro
       ImageId: ami-0b32d400456908bf9  # Replace with your region's latest Amazon Linux 2 AMI
-      KeyName: aws-key       # Replace with your EC2 key pair
+      KeyName: mymumbai-key     # Replace with your EC2 key pair
       SecurityGroups:
         - default
 
