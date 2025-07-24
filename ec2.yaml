@@ -1,8 +1,17 @@
----
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple EC2 Instance
+
 Resources:
-  Ec2Instance: 
-    Type: AWS::EC2::Instance 
-    Properties: 
-      AvailabilityZone: ap-south-1a
-      ImageId: ami-0b32d400456908bf9
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
       InstanceType: t2.micro
+      ImageId: ami-0c55b159cbfafe1f0  # Replace with your region's latest Amazon Linux 2 AMI
+      KeyName: my-key-pair-name       # Replace with your EC2 key pair
+      SecurityGroups:
+        - default
+
+Outputs:
+  InstanceId:
+    Description: Instance ID
+    Value: !Ref EC2Instance
