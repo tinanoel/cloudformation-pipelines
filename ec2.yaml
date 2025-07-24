@@ -35,6 +35,7 @@ Resources:
             - DefaultSecurityGroup
       InstanceType: t2.micro
       KeyName: mymumbai-key
+      AvailabilityZone: ap-south-1a
       SubnetId: 
         Ref: MySubnet
 
