@@ -32,7 +32,9 @@ Resources:
       SecurityGroupIds: 
         - Fn::GetAtt: 
             - MyVPC 
-            - DefaultSecurityGroup 
+            - DefaultSecurityGroup
+      InstanceType: t2.micro
+      KeyName: mymumbai-key
       SubnetId: 
         Ref: MySubnet
 
