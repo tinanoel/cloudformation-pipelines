@@ -13,10 +13,10 @@ Resources:
   MySubnet: 
     Type: AWS::EC2::Subnet 
     Properties: 
-    CidrBlock: 
-      Ref: MyVPCCIDRRange 
-    VpcId: 
-      Ref: MyVPC
+      CidrBlock: 
+        Ref: MyVPCCIDRRange 
+      VpcId: 
+        Ref: MyVPC
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties
