@@ -15,7 +15,7 @@ Resources:
       CidrBlock: 10.0.0.34/27 
       VpcId: 
         Ref: MyVPC
-  EC2Instance:
+  MyInstance:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: 
@@ -33,4 +33,4 @@ Resources:
 Outputs:
   InstanceId:
     Description: Instance ID
-    Value: !Ref EC2Instance
+    Value: !Ref MyInstance
